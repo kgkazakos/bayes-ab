@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bayes-ab"
+version = "0.1.0"
+description = "Bayesian A/B testing — posteriors, credible intervals, and decision rules for product researchers"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "Kostas Kazakos" }]
+keywords = ["bayesian", "ab-testing", "statistics", "ux-research", "cli"]
+dependencies = ["click>=8.0", "numpy>=1.24", "scipy>=1.10", "rich>=13.0"]
+
+[project.optional-dependencies]
+openai = ["openai>=1.0"]
+anthropic = ["anthropic>=0.20"]
+gemini = ["google-generativeai>=0.5"]
+all = ["openai>=1.0", "anthropic>=0.20", "google-generativeai>=0.5"]
+dev = ["pytest>=7.0", "ruff>=0.4"]
+
+[project.scripts]
+bayes-ab = "bayes_ab.cli:cli"
+
+[project.urls]
+Repository = "https://github.com/kgkazakos/bayes-ab"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["bayes_ab*"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
